@@ -149,3 +149,48 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
         }, 5000); // Уведомление исчезает через 5 секунд
     });
 
+// Скрыть предзагрузчик после загрузки страницы
+window.onload = function() {
+    document.getElementById('preloader').style.display = 'none';
+};
+
+
+
+// Пример данных JSON
+const testimonialsData = {
+    "testimonials": [
+        {
+            "text": "Благодаря профессионализму юристов этой компании, я смог успешно решить сложный вопрос с недвижимостью. Очень доволен результатом!",
+            "author": "Иван Петров",
+            "authorInfo": "Предприниматель"
+        },
+        {
+            "text": "Выражаю огромную благодарность за помощь в разрешении трудового спора. Специалисты компании проявили высокий уровень компетентности и внимания к деталям.",
+            "author": "Елена Сидорова",
+            "authorInfo": "Менеджер"
+        },
+        {
+            "text": "Обратилась в компанию по вопросу семейного права. Получила квалифицированную помощь и поддержку на всех этапах процесса. Спасибо!",
+            "author": "Анна Смирнова",
+            "authorInfo": "Домохозяйка"
+        }
+    ]
+};
+
+// Вывод отзывов на страницу
+const testimonialsContainer = document.querySelector('.testimonial-cards');
+testimonialsData.testimonials.forEach(testimonial => {
+    const testimonialCard = document.createElement('div');
+    testimonialCard.classList.add('testimonial-card', 'animate__animated', 'animate__fadeInUp');
+    
+    testimonialCard.innerHTML = `
+        <p class="testimonial-text">"${testimonial.text}"</p>
+        <p class="testimonial-author">${testimonial.author}</p>
+        <p class="testimonial-author-info">${testimonial.authorInfo}</p>
+    `;
+    
+    testimonialsContainer.appendChild(testimonialCard);
+});
+
+
+
