@@ -1,0 +1,145 @@
+/* Общие стили */
+body {
+    font-family: 'Cormorant Garamond', serif; /* Элегантный шрифт с засечками */
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+    line-height: 1.6;
+     overflow-x: hidden; /* Убираем горизонтальный скролл */
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif; /* Более выразительный шрифт для заголовков */
+    color: #223a5e; /* Темно-синий цвет для акцента */
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+h1 { font-size: 3.5em; }
+h2 { font-size: 2.8em; }
+h3 { font-size: 2em; }
+
+p {
+    font-size: 1.1em;
+    margin-bottom: 1em;
+}
+
+a {
+    color: #a87b32; /* Золотистый цвет для ссылок */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #8b5e2b;
+     text-decoration: underline;
+}
+
+/* Контейнер */
+.container {
+    width: 85%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background: linear-gradient(to right, #223a5e, #34517f); /* Градиент */
+    color: #fff;
+    padding: 30px 0;
+    text-align: center;
+     position: relative; /* Для анимации */
+    overflow: hidden;  /* Скрываем выходящие за границы элементы */
+}
+header h1 {
+    margin: 0;
+    z-index: 2;
+    position: relative;
+     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+header p {
+     font-size: 1.4em;
+     font-style: italic;
+     z-index: 2;
+     position: relative;
+     margin-top: 0.5em;
+}
+
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+    color: #333;
+}
+
+
+/* Анимации (библиотека Animate.css) */
+.animated {
+    /*  opacity: 0;  Скрываем элементы перед анимацией */
+    /*  visibility: hidden; */
+}
+
+.animated.animate__fadeInUp {
+   /*  opacity: 1;
+    visibility: visible; */
+}
+ /* Медиа-запросы (адаптивность) */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 20px; /* Уменьшаем отступы */
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+
+    h2 {
+      font-size: 2em;
+    }
+
+    .about-content {
+        flex-direction: column; /* Переключаем на вертикальное расположение */
+    }
+    .about-image {
+        margin-top: 30px; /* Добавляем отступ сверху */
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr; /* Одна колонка */
+    }
+      .benefits-list {
+        flex-direction: column; /* В столбик */
+        align-items: center; /* По центру */
+    }
+    .benefit-item {
+        width: 90%; /* Ширина на весь экран */
+    }
+}

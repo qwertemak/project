@@ -1,0 +1,19 @@
+ /* Подвал */
+ footer {
+    background-color: #223a5e;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.9em;
+}
+
+footer a {
+    color: #ddd; /* Светло-серый для ссылок в подвале */
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+   color: white;
+}

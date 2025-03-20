@@ -1,0 +1,60 @@
+/* Секция "Услуги" */
+.services {
+    padding: 80px 0;
+    background-color: #f2f2f2; /* Светло-серый фон */
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Адаптивная сетка */
+    gap: 30px;
+}
+
+.service-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавный переход */
+    text-align: center;
+    overflow: hidden; /* Обрезаем контент, если он выходит за границы карточки */
+    position: relative; /* Для позиционирования анимации */
+}
+
+.service-card:hover {
+    transform: translateY(-10px); /* Поднимаем карточку при наведении */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Увеличиваем тень */
+}
+
+.service-card::before { /* Псевдоэлемент для анимации */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px; /* Толщина линии */
+    background-color: #c8a97e; /* Цвет линии */
+    transform: scaleX(0); /* Начальное состояние - линия скрыта */
+    transform-origin: left; /* Анимация начинается слева */
+    transition: transform 0.4s ease; /* Плавный переход */
+}
+
+.service-card:hover::before {
+    transform: scaleX(1); /* Линия появляется при наведении */
+}
+
+
+.service-icon {
+   font-size: 3em;
+   color: #c8a97e;
+   margin-bottom: 20px;
+}
+
+.service-title {
+    margin-bottom: 15px;
+    color: #223a5e;
+}
+
+.service-description {
+    color: #666;
+}

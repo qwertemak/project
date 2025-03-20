@@ -1,0 +1,21 @@
+.hero-button {
+    display: inline-block;
+    background-color: #c8a97e;  /* Золотистый цвет */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Плавный переход цвета и масштаба */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none; /* Убираем стандартную рамку */
+    cursor: pointer; /* Меняем курсор при наведении */
+}
+
+.hero-button:hover {
+    background-color: #b59264; /* Немного темнее при наведении */
+    transform: scale(1.05); /* Немного увеличиваем кнопку */
+     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Увеличиваем тень */
+}

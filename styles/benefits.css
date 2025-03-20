@@ -1,0 +1,49 @@
+/* Секция "Преимущества" */
+.benefits {
+    padding: 80px 0;
+    text-align: center;
+ }
+
+ .benefits-list {
+     display: flex;
+     flex-wrap: wrap; /* Перенос на новую строку, если не помещается */
+     justify-content: center;
+     gap: 30px;
+     margin-top: 40px;
+ }
+
+ .benefit-item {
+     width: 300px;
+     padding: 20px;
+     border: 2px solid #eee; /* Светлая рамка */
+     border-radius: 10px;
+     text-align: left; /* Выравнивание текста по левому краю */
+     transition: all 0.3s ease; /* Плавные переходы для всех свойств */
+     background-color: #fff; /* Белый фон */
+     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Тень */
+
+ }
+
+  .benefit-item:hover {
+       border-color: #c8a97e; /* Меняем цвет рамки при наведении */
+       transform: scale(1.03); /* Немного увеличиваем */
+       box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15); /* Увеличиваем тень */
+   }
+
+
+  .benefit-icon {
+      font-size: 2.5em;
+      color: #c8a97e;
+      margin-bottom: 15px;
+      display: inline-block; /* Чтобы иконка была блочным элементом */
+  }
+
+  .benefit-title {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #223a5e;
+  }
+
+  .benefit-description {
+      color: #666;
+  }

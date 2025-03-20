@@ -1,0 +1,34 @@
+ /* Секция "О нас" */
+ .about {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.about-content {
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+    justify-content: space-between; /* Равномерное распределение */
+    gap: 40px; /* Расстояние между элементами */
+}
+
+.about-text {
+    flex: 1;  /* Занимает доступное пространство */
+    text-align: left;
+}
+
+.about-image {
+    flex: 1;  /* Занимает доступное пространство */
+    text-align: center; /* Выравнивание изображения по центру */
+ }
+
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px; /* Скругление углов */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Тень */
+    transition: transform 0.3s ease; /* Плавный переход для анимации */
+}
+.about-image img:hover {
+    transform: scale(1.05); /* Немного увеличиваем при наведении */
+}

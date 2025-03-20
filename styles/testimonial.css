@@ -1,0 +1,160 @@
+/* Секция "Отзывы" */
+.testimonials {
+    padding: 80px 0;
+    background-color: #f0f4f8; /* Легкий голубоватый фон для контраста */
+    text-align: center;
+    overflow: visible;
+    border-radius: 10px; /* Закругленные углы для секции */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Легкая тень вокруг секции */
+}
+
+.testimonials h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* Добавляем эффект для заголовка */
+.testimonials h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: #c8a97e; /* Цвет акцента */
+    border-radius: 2px;
+}
+
+/* Слайдер с отзывами */
+.testimonials-slider {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    border-radius: 10px; /* Закругленные углы для контейнера с отзывами */
+}
+
+.testimonial-cards {
+    display: flex;
+    width: 300%; /* Если 3 отзыва */
+    transition: transform 0.5s ease-in-out;
+}
+
+.testimonial-card {
+    flex: 0 0 100%;
+    text-align: center;
+    padding: 30px;
+    min-height: 200px; /* Увеличиваем высоту */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    background: #fff; /* Белый фон для каждой карточки */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); /* Легкая тень для карточек */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
+}
+
+/* Добавим эффект наведения на карточку */
+.testimonial-card:hover {
+    transform: translateY(-10px); /* Поднимаем карточку вверх при наведении */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Усиливаем тень при наведении */
+}
+
+/* Текст отзыва */
+.testimonial-text {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 20px;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 30%;
+    text-align: center;
+    font-size: 18px; /* Размер шрифта для удобочитаемости */
+}
+
+/* Автор отзыва */
+.testimonial-author, 
+.testimonial-author-info {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    max-width: 10%;
+    white-space: normal;
+    overflow: visible;
+}
+
+/* Имя автора */
+.testimonial-author {
+    font-size: 20px;
+    color: #333;
+    max-width: 10%;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Информация об авторе */
+.testimonial-author-info {
+    font-size: 14px;
+    color: #777;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Кнопки управления */
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.slider-prev,
+.slider-next {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #c8a97e;
+    cursor: pointer;
+    transition: color 0.3s;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+    color: #a58a65;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Увеличиваем тень при наведении */
+}
+
+/* Индикаторы */
+.slider-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #ddd;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.slider-dot.active {
+    background: #c8a97e;
+    transform: scale(1.2); /* Увеличиваем активный индикатор */
+}
+
+.slider-dots {
+    text-align: center;
+    margin-top: 15px;
+}

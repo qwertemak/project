@@ -1,0 +1,117 @@
+/* Секция "Контакты" */
+.contact {
+    padding: 80px 0;
+    text-align: center;
+ }
+
+ .contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+     display: grid; /* Используем Grid */
+     grid-template-columns: 1fr; /* Одна колонка */
+     gap: 20px; /* Расстояние между полями */
+ }
+
+  .form-group {
+     /* Дополнительных стилей не нужно, так как используем grid */
+  }
+
+ .contact-form input[type="text"],
+ .contact-form input[type="email"],
+ .contact-form textarea {
+    width: 100%; /* Полная ширина */
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1.1em;
+    box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
+    transition: border-color 0.3s ease; /* Плавный переход цвета границы */
+    outline: none; /* Убираем стандартную обводку при фокусе */
+ }
+
+  .contact-form input[type="text"]:focus,
+  .contact-form input[type="email"]:focus,
+  .contact-form textarea:focus {
+     border-color: #c8a97e; /* Меняем цвет границы при фокусе */
+  }
+
+ .contact-form textarea {
+    resize: vertical; /* Разрешаем вертикальное изменение размера */
+    min-height: 150px; /* Минимальная высота */
+ }
+
+  .contact-form button[type="submit"] {
+       /* Стили для кнопки отправки (используем стили .hero-button) */
+      display: inline-block;
+      background-color: #c8a97e;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 1.2em;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: none;
+      cursor: pointer;
+      justify-self: center; /* Центрируем кнопку в grid-ячейке */
+  }
+
+  .contact-form button[type="submit"]:hover {
+      background-color: #b59264;
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+
+/* Иконки контактов */
+.contact-info {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(240, 240, 240, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info p {
+    margin: 0;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.contact-info p::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #c8a97e;
+    font-size: 1.5em;
+}
+
+.contact-info p:nth-child(1)::before { content: "\f095"; } /* Телефон */
+.contact-info p:nth-child(2)::before { content: "\f0e0"; } /* Email */
+.contact-info p:nth-child(3)::before { content: "\f4e3"; } /* Адрес */
+ .contact-info a {
+    color: #007bff; /* Синий цвет для ссылок */
+    text-decoration: none; /* Убираем подчеркивание */
+    transition: color 0.3s ease; /* Плавный переход цвета */
+ }
+
+ .contact-info a:hover {
+     color: #0056b3; /* Более темный синий при наведении */
+ }
+
+ .success-message {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    display: none;
+}
