@@ -1,196 +1,244 @@
-let currentSlide = 0; // Добавьте это в начало файла
+// Глобальные переменные
+let currentSlide = 0;
+let swiperInstance = null;
 
- 
- 
- 
- // Простая инициализация анимаций (Animate.css)
- document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.animate__animated');
+// Инициализация после полной загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+    initSmoothScroll();
+    initLoginModal();
+    initContactForm();
+    loadTestimonials();
+});
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate__fadeInUp'); // Или другую анимацию
-                observer.unobserve(entry.target); // Прекращаем наблюдение после срабатывания
+// Плавная прокрутка
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (history.pushState) {
+                    history.pushState(null, '', targetId);
+                }
             }
         });
-    }, {
-        threshold: 0.2 // Элемент видим на 20%
+    });
+}
+
+// Модальное окно входа
+function initLoginModal() {
+    const modal = document.getElementById("loginModal");
+    const btn = document.getElementById("loginBtn");
+    const span = document.getElementsByClassName("close")[0];
+
+    if (!modal || !btn) return;
+
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.style.display = "block";
+
+        const savedLogin = localStorage.getItem('savedLogin');
+        const usernameInput = document.getElementById("username");
+        if (savedLogin && usernameInput) {
+            usernameInput.value = savedLogin;
+            document.getElementById("remember")?.setAttribute('checked', true);
+        }
     });
 
-    animatedElements.forEach(element => {
-        observer.observe(element);
-    });
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const testimonials = document.querySelector('.testimonial-cards');
-    const slides = Array.from(document.querySelectorAll('.testimonial-card'));
-    const prevBtn = document.querySelector('.slider-prev');
-    const nextBtn = document.querySelector('.slider-next');
-    const sliderDots = document.querySelector('.slider-dots');
-    let currentSlide = 0;
-
-    // Добавляем ширину контейнера для корректного смещения
-    testimonials.style.width = `${slides.length * 100}%`;
-
-    // Создаём индикаторы
-    slides.forEach((_, index) => {
-        const dot = document.createElement('button');
-        dot.className = 'slider-dot';
-        dot.dataset.slide = index;
-        sliderDots.appendChild(dot);
-    });
-
-    function goToSlide(slideIndex) {
-        currentSlide = slideIndex;
-        testimonials.style.transform = `translateX(-${100 * currentSlide}%)`;
-
-        // Обновляем активный индикатор
-        document.querySelectorAll('.slider-dot').forEach(dot => dot.classList.remove('active'));
-        sliderDots.children[slideIndex].classList.add('active');
+    if (span) {
+        span.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
     }
 
-    // Обработчики кнопок
-    prevBtn.addEventListener('click', () => {
-        currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
-        goToSlide(currentSlide);
-    });
-
-    nextBtn.addEventListener('click', () => {
-        currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
-        goToSlide(currentSlide);
-    });
-
-    // Обработчик кликов по индикаторам
-    sliderDots.addEventListener('click', (e) => {
-        if (e.target.classList.contains('slider-dot')) {
-            goToSlide(parseInt(e.target.dataset.slide));
+    window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
     });
 
-    // Инициализация
-    goToSlide(0);
-});
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+        loginForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const username = document.getElementById("username")?.value || '';
+            const password = document.getElementById("password")?.value || '';
+            const remember = document.getElementById("remember")?.checked || false;
 
+            if (remember) {
+                localStorage.setItem('savedLogin', username);
+            } else {
+                localStorage.removeItem('savedLogin');
+            }
 
+            if (username === "log" && password === "log") {
+                window.location.href = "profile.html";
+            } else {
+                alert("Неверный логин или пароль!");
+            }
+        });
+    }
 
-// Плавная прокрутка при клике на якорные ссылки
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
-      });
+    // Чекбокс "Запомнить"
+    if (loginForm && !document.getElementById("remember")) {
+        loginForm.insertAdjacentHTML(
+            'beforeend',
+            '<div class="form-group"><label><input type="checkbox" id="remember"> Запомнить меня</label></div>'
+        );
+    }
+}
+
+// Форма контакта
+function initContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
+
+    restoreFormData();
+
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        saveFormData();
+        const successMessage = document.getElementById('successMessage');
+        if (successMessage) successMessage.style.display = 'block';
+        contactForm.style.display = 'none';
+
+        setTimeout(() => {
+            if (successMessage) successMessage.style.display = 'none';
+            contactForm.style.display = 'block';
+            contactForm.reset();
+            localStorage.removeItem('formData');
+        }, 5000);
     });
-  });
-  
-
-
-  // Получаем элементы
-var modal = document.getElementById("loginModal");
-var btn = document.getElementById("loginBtn");
-var span = document.getElementsByClassName("close")[0];
-
-// Открытие модального окна
-btn.onclick = function() {
-  modal.style.display = "block";
 }
 
-// Закрытие модального окна
-span.onclick = function() {
-  modal.style.display = "none";
+function saveFormData() {
+    const formData = {
+        name: document.getElementById("name")?.value || '',
+        email: document.getElementById("email")?.value || '',
+        message: document.getElementById("message")?.value || ''
+    };
+    localStorage.setItem('formData', JSON.stringify(formData));
 }
 
-// Закрытие модального окна при клике вне его
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+function restoreFormData() {
+    const savedData = localStorage.getItem('formData');
+    if (!savedData) return;
+
+    try {
+        const data = JSON.parse(savedData);
+        if (document.getElementById("name")) document.getElementById("name").value = data.name || '';
+        if (document.getElementById("email")) document.getElementById("email").value = data.email || '';
+        if (document.getElementById("message")) document.getElementById("message").value = data.message || '';
+    } catch (e) {
+        console.error("Ошибка восстановления данных формы:", e);
+    }
 }
 
-// Обработка отправки формы
-document.getElementById("loginForm").addEventListener("submit", function(e) {
-  e.preventDefault(); // Отменить стандартное поведение (перезагрузка страницы)
+// Загрузка отзывов из JSON
+function loadTestimonials() {
+    fetch('data.json')
+        .then(response => {
+            if (!response.ok) throw new Error(`Ошибка загрузки: ${response.statusText}`);
+            return response.json();
+        })
+        .then(data => {
+            renderTestimonials(data.testimonials);
+            setTimeout(() => {
+                initAnimations();
+                initTestimonialsSlider();
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки отзывов:', error);
+            const wrapper = document.querySelector('.testimonials-slider');
+            if (wrapper) {
+                wrapper.innerHTML = `
+                    <div class="error-message">
+                        <p>Не удалось загрузить отзывы.</p>
+                    </div>
+                `;
+            }
+        });
+}
 
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
-
-  // Проверка логина и пароля
-  if (username === "log" && password === "log") {
-    // Перенаправление на страницу профиля
-    window.location.href = "profile.html";
-  } else {
-    alert("Неверный логин или пароль!");
-  }
-
-  // Закрытие модального окна после отправки
-  modal.style.display = "none";
-});
-
-
-
-
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Отменить стандартное поведение формы (перезагрузку страницы)
-
-
-        // Показываем уведомление об успешной отправке
-        document.getElementById('successMessage').style.display = 'block';
-
-        // Скрываем форму после отправки
-        document.getElementById('contactForm').style.display = 'none';
-
-        // Можно добавить дополнительную задержку, прежде чем скрыть уведомление, например, через 5 секунд:
-        setTimeout(function() {
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('contactForm').style.display = 'block'; // Восстановим форму (если нужно)
-        }, 5000); // Уведомление исчезает через 5 секунд
+// Отображение отзывов
+function renderTestimonials(data) {
+    const container = document.querySelector('.swiper-wrapper');
+    if (!container) return;
+    container.innerHTML = ''; // очистка
+    data.forEach(({ text, author, authorInfo }) => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide testimonial-card animate__animated animate__fadeInUp';
+        slide.innerHTML = `
+            <div class="testimonial-content">
+                <p class="testimonial-text">"${text}"</p>
+                <div class="testimonial-author">
+                    <h4>${author}</h4>
+                    <p>${authorInfo}</p>
+                </div>
+            </div>
+        `;
+        container.appendChild(slide);
     });
+}
 
-// Скрыть предзагрузчик после загрузки страницы
-window.onload = function() {
-    document.getElementById('preloader').style.display = 'none';
-};
+// Анимации (если подключена Animate.css)
+function initAnimations() {
+    const elements = document.querySelectorAll('.animate__animated');
+    if (elements.length && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__fadeInUp');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        elements.forEach(el => observer.observe(el));
+    } else {
+        elements.forEach(el => el.classList.add('animate__fadeInUp'));
+    }
+}
 
+function initTestimonialsSlider() {
+    const container = document.querySelector('.testimonials-slider');
+    if (!container) return;
 
+    if (window.swiperInstance && typeof swiperInstance.destroy === 'function') {
+        window.swiperInstance.destroy(true, true);
+    }
 
-// Пример данных JSON
-const testimonialsData = {
-    "testimonials": [
-        {
-            "text": "Благодаря профессионализму юристов этой компании, я смог успешно решить сложный вопрос с недвижимостью. Очень доволен результатом!",
-            "author": "Иван Петров",
-            "authorInfo": "Предприниматель"
+    window.swiperInstance = new Swiper('.testimonials-slider', {
+        loop: false, // ❌ Без дублирования
+        slidesPerView: 1, // ✅ Только один отзыв на экране
+        spaceBetween: 30,
+        autoplay: false, // ❌ Без автопрокрутки (если хочешь — можно включить)
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
         },
-        {
-            "text": "Выражаю огромную благодарность за помощь в разрешении трудового спора. Специалисты компании проявили высокий уровень компетентности и внимания к деталям.",
-            "author": "Елена Сидорова",
-            "authorInfo": "Менеджер"
-        },
-        {
-            "text": "Обратилась в компанию по вопросу семейного права. Получила квалифицированную помощь и поддержку на всех этапах процесса. Спасибо!",
-            "author": "Анна Смирнова",
-            "authorInfo": "Домохозяйка"
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
         }
-    ]
-};
+        // ❌ breakpoints удалены
+    });
+}
+// Скрытие прелоадера после загрузки страницы
+window.addEventListener('load', function () {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.style.display = 'none';
+        }, 1500);
+    }
 
-// Вывод отзывов на страницу
-const testimonialsContainer = document.querySelector('.testimonial-cards');
-testimonialsData.testimonials.forEach(testimonial => {
-    const testimonialCard = document.createElement('div');
-    testimonialCard.classList.add('testimonial-card', 'animate__animated', 'animate__fadeInUp');
-    
-    testimonialCard.innerHTML = `
-        <p class="testimonial-text">"${testimonial.text}"</p>
-        <p class="testimonial-author">${testimonial.author}</p>
-        <p class="testimonial-author-info">${testimonial.authorInfo}</p>
-    `;
-    
-    testimonialsContainer.appendChild(testimonialCard);
+    window.addEventListener('resize', () => {
+        if (swiperInstance && !swiperInstance.destroyed) {
+            swiperInstance.update();
+        }
+    });
 });
-
-
-
